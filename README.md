@@ -1,6 +1,6 @@
-# fdd
+# uev-project
 
-> fdd
+> An electron-vue project
 
 #### Build Setup
 
