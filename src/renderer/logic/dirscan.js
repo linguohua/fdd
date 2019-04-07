@@ -6,10 +6,14 @@ let dirIconClass = ''
 let fileIconClass = 'el-icon-document'
 
 function doScan (targetDir, root) {
+  if (targetDir.indexOf('node_modules') >= 0) {
+    return
+  }
+
   let files = fs.readdirSync(targetDir)
   // es6
   for (let filePath of files) {
-    if (filePath === 'node_modules') {
+    if (filePath.indexOf('node_modules') >= 0) {
       continue
     }
 
@@ -172,6 +176,7 @@ export default {
     obj.isDir = true
     obj.children = []
     obj.iconClass = dirIconClass
+    doScan(dir, obj)
 
     node.children.push(obj)
   },
