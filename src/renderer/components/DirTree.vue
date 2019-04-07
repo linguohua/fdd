@@ -144,7 +144,8 @@ export default {
       const watcher = chokidar.watch(this.projectdir, {
         ignored: ['**/node_modules/**', /(^|[/\\])\../],
         persistent: true,
-        usePolling: true
+        usePolling: true,
+        ignoreInitial: true
       })
 
       // Something to use when events are received.
