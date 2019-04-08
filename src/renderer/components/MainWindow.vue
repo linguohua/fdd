@@ -28,6 +28,7 @@ import dirtree from './DirTree.vue'
 import leveledit from './LevelEdit.vue'
 import Split from 'split.js'
 import config from '../logic/config'
+import fs from 'fs'
 
 export default {
   components: {
@@ -77,10 +78,16 @@ export default {
 
       for (let f of e.dataTransfer.files) {
         console.log('The file(s) you dragged: ', f, ', typeof f.name:', typeof (f.name))
+        let filepath = f.path
         let filename = f.name
-        if (filename.endsWith(config.levelFileExt)) {
-          this.$refs.le.openLevelFile(f.path)
+        if (fs.lstatSync(filepath).isDirectory()) {
+          this.$refs.dt.openFolder(filepath)
           break
+        } else {
+          if (filename.endsWith(config.levelFileExt)) {
+            this.$refs.le.openLevelFile(f.path)
+            break
+          }
         }
       }
     })

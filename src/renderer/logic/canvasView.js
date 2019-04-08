@@ -201,7 +201,16 @@ function CanvasView (mountElementNameA, mountElementNameB) {
       borderStroke: 'green',
       borderDash: [3, 3],
       rotateEnabled: false,
-      enabledAnchors: ['top-left', 'top-right', 'bottom-left', 'bottom-right']
+      enabledAnchors: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
+      boundBoxFunc: (o, n) => {
+        if (n.width < minRadius) {
+          n.width = minRadius
+        }
+        if (n.height < minRadius) {
+          n.height = minRadius
+        }
+        return n
+      }
     })
 
     return tr
@@ -220,6 +229,17 @@ function CanvasView (mountElementNameA, mountElementNameB) {
 
     c.dpCfg = dpCfg
     let myThis = this
+
+    let updatePosition = () => {
+      let pos = c.position()
+      pos.x = Math.floor(pos.x)
+      pos.y = Math.floor(pos.y)
+      c.position(pos)
+
+      c.dpCfg.x = pos.x
+      c.dpCfg.y = pos.y
+    }
+
     c.on('transformend', () => {
       // 更新半径
       // console.log('transform end')
@@ -230,20 +250,24 @@ function CanvasView (mountElementNameA, mountElementNameB) {
 
       c.radius(radius)
       c.scale({x: 1, y: 1})
-
       c.dpCfg.radius = radius
+
+      updatePosition()
 
       myThis.onContentChanged(c)
     })
 
-    c.on('dragend', function () {
-      let pos = c.position()
-      pos.x = Math.floor(pos.x)
-      pos.y = Math.floor(pos.y)
-      c.position(pos)
+    c.on('transform', () => {
+      let radius = Math.floor(c.radius() * c.scaleX())
+      if (radius < minRadius) {
+        radius = minRadius
+      }
 
-      c.dpCfg.x = pos.x
-      c.dpCfg.y = pos.y
+      c.dpCfg.radius = radius
+    })
+
+    c.on('dragend', function () {
+      updatePosition()
 
       myThis.onContentChanged(c)
     })
