@@ -14,7 +14,18 @@ const template = [
         }
       },
       {
-        label: 'Open recent'
+        label: 'Open file',
+        click: () => {
+          let paths = dialog.showOpenDialog(mainWindow, {
+            properties: ['openFile'],
+            filters: [
+              { name: 'Levels', extensions: ['level.json'] }
+            ]
+          })
+          if (paths) {
+            mainWindow.webContents.send('openFile', paths)
+          }
+        }
       },
       {
         role: 'quit'

@@ -1,5 +1,7 @@
 import Konva from 'konva'
 
+const minRadius = 24
+
 function CanvasView (mountElementNameA, mountElementNameB) {
   this.imageA = null
   this.imageB = null
@@ -148,7 +150,7 @@ function CanvasView (mountElementNameA, mountElementNameB) {
     let cfg = {
       x: pos.x,
       y: pos.y,
-      radius: 1,
+      radius: minRadius,
       w: 1
     }
 
@@ -168,6 +170,10 @@ function CanvasView (mountElementNameA, mountElementNameB) {
     let ydist = center.y - newPos.y
 
     let dist = Math.sqrt(xdist * xdist + ydist * ydist)
+    if (dist < minRadius) {
+      dist = minRadius
+    }
+
     this.newCreateCircle.radius(dist)
     this.newCreateCircle.dpCfg.radius = dist
 
@@ -218,6 +224,10 @@ function CanvasView (mountElementNameA, mountElementNameB) {
       // 更新半径
       // console.log('transform end')
       let radius = Math.floor(c.radius() * c.scaleX())
+      if (radius < minRadius) {
+        radius = minRadius
+      }
+
       c.radius(radius)
       c.scale({x: 1, y: 1})
 

@@ -20,14 +20,14 @@
         <vue-context ref="menu-for-dir" style="width:180px;">
             <ul slot-scope="child">
                 <li @click="onCtxMenuClicked($event.target.innerText, child.data)">New level</li>
-                <li @click="onCtxMenuClicked($event.target.innerText, child.data)">Reavel in Explorer</li>
+                <li @click="onCtxMenuClicked($event.target.innerText, child.data)">Reveal in Explorer</li>
             </ul>
         </vue-context>
 
         <vue-context ref="menu-for-file" style="width:180px;">
             <ul slot-scope="child">
                 <li @click="onCtxMenuClicked($event.target.innerText, child.data)">Delete</li>
-                <li @click="onCtxMenuClicked($event.target.innerText, child.data)">Reavel in Explorer</li>
+                <li @click="onCtxMenuClicked($event.target.innerText, child.data)">Reveal in Explorer</li>
             </ul>
         </vue-context>
 

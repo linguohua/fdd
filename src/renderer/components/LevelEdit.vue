@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <el-container id = "three">
-          <el-header style="text-align: right; font-size: 12px">
+          <el-header style="text-align: right; font-size: 12px; height:auto;">
           <span style="margin-right:30px;font-weight: bold;font-size: large;">关卡文件: {{ levelFilePath }} <span v-show="changed">[*]</span></span>
           <span style="margin-right:30px;">Command: {{ state }}</span>
           <el-checkbox v-model="verticalShow">垂直显示</el-checkbox>
