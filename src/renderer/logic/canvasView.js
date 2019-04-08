@@ -203,11 +203,12 @@ function CanvasView (mountElementNameA, mountElementNameB) {
       rotateEnabled: false,
       enabledAnchors: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
       boundBoxFunc: (o, n) => {
-        if (n.width < minRadius) {
-          n.width = minRadius
+        let bx = minRadius * 2
+        if (n.width < bx) {
+          n.width = bx
         }
-        if (n.height < minRadius) {
-          n.height = minRadius
+        if (n.height < bx) {
+          n.height = bx
         }
         return n
       }
