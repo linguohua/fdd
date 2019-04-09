@@ -97,6 +97,13 @@ export default {
     this.cv.onContentChanged = () => {
       this.changed = true
     }
+
+    window.addEventListener('keydown', (ev) => {
+      console.log('keydown:', ev)
+      if (ev.keyCode === 46) {
+        this.cv.handlerRemove()
+      }
+    })
   },
 
   methods: {

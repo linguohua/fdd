@@ -28,6 +28,13 @@ const template = [
         }
       },
       {
+        label: 'Save file',
+        accelerator: 'CmdOrCtrl+S',
+        click: () => {
+          mainWindow.webContents.send('saveFile')
+        }
+      },
+      {
         role: 'quit'
       }
     ]

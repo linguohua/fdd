@@ -55,7 +55,10 @@ export default {
       console.log('openFile:', arg) // prints "pong"
       this.$refs.le.openLevelFile(arg[0])
     })
-
+    ipcRenderer.on('saveFile', (event, arg) => {
+      console.log('saveFile') // prints "pong"
+      this.$refs.le.handlerSave()
+    })
     Split(['#one', '#two'], {
       sizes: [15, 85],
       minSize: [100, 800],
