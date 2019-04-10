@@ -31,6 +31,7 @@ import Split from 'split.js'
 import fs from 'fs'
 import diffpointProp from './DiffPointProp.vue'
 import levelProp from './LevelProp.vue'
+import { remote } from 'electron'
 
 export default {
   components: {
@@ -117,6 +118,27 @@ export default {
     },
 
     openLevelFile (fullPath) {
+      if (!this.changed) {
+        this.doOpenLevelFile(fullPath)
+      } else {
+        let mainWindow = remote.getCurrentWindow()
+        remote.dialog.showMessageBox(mainWindow, {
+          type: 'warning',
+          buttons: ['Shit', 'Do not BiBi'],
+          defaultId: 0,
+          cancelId: 0,
+          title: '丢弃更改',
+          message: '当前的关卡已经更改,是否丢弃并打开新文件?'
+        },
+        (response) => {
+          if (response === 1) {
+            this.doOpenLevelFile(fullPath)
+          }
+        })
+      }
+    },
+
+    doOpenLevelFile (fullPath) {
       this.levelFilePath = fullPath
       this.changed = false
 
@@ -131,6 +153,7 @@ export default {
       this.$refs.levelProp.bind(lvCfg)
       this.levelPropShow = true
     },
+
     onlvCfgChanged (cfgName) {
       this.changed = true
 
